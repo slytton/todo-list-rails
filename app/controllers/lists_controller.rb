@@ -3,20 +3,21 @@ class ListsController < ApplicationController
   before_action :get_list, only: [:update, :show, :destroy]
 
   def index
-    render json: @lists.as_json(
-             only: [:id, :title, :description],
-             include: {
-                 todos: { only: [:id, :detail, :done]}
-             }
-           )
+    render json: @lists
+           #     @lists.as_json(
+           #   only: [:id, :title, :description],
+           #   include: {
+           #       todos: { only: [:id, :detail, :done]}
+           #   }
+           # )
   end
 
   def create
     @list = List.new(list_params)
     if @list.save
-      render json: {message: "new list created successfully", todo: @list}
+      render json: @list
     else
-      render json: {error: "list could not be created :(", todo: @list}
+      render json: {errors: ["list could not be created :("]}
     end
   end
 
@@ -24,10 +25,7 @@ class ListsController < ApplicationController
   def update
 
     if @list.update list_params
-      render json: {
-                 message: "Successfully updated list",
-                 list: @list.as_json(only: [:id, :title])
-             }
+      render json: @list
     else
       render json: {errors: ["Unable to update list #{@list_params[id]}"] }
     end
@@ -35,13 +33,14 @@ class ListsController < ApplicationController
 
   def destroy
     if @list.destroy
-      render json: {
-                 message: "Successfully deleted the list",
-                 list: @list.as_json(only: [:id, :title])
-             }
+      render json: @list
     else
       render json: {errors: ["Unable to delete list #{@list_params[id]}"] }
     end
+  end
+
+  def show
+    render json: @list
   end
 
   private

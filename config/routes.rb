@@ -6,8 +6,10 @@ Rails.application.routes.draw do
   # post "/todos" to: "todos#create"
   # resources :todos, only: [:index, :create, :createTodo]
   # resources :lists, only: [:index]
-
-  resources :lists do
-    resources :todos, only: [:create, :update, :index, :destroy]
+  scope 'api' do
+    resources :lists do
+      resources :todos, shallow: true
+    end
   end
 end
+
