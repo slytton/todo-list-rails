@@ -10,6 +10,7 @@ gem 'puma', '~> 3.0'
 # Use ActiveModel serializers for hypermedia api
 gem 'active_model_serializers', '~> 0.10.0'
 
+ruby '2.3.1'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
