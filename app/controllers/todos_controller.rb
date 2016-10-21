@@ -3,6 +3,7 @@ class TodosController < ApplicationController
 
   def index
     @todos = Todo.all.where(list_id: params[:list_id])
+
     render json: @todos
   end
 
@@ -10,39 +11,23 @@ class TodosController < ApplicationController
     @list = List.find(params[:list_id]);
     @todo = @list.todos.build(todo_params)
 
-    if @todo.save
-      render json: @todo
-    else
-      render json: {errors: ["Todo could not be created :("]}
-    end
+    send_response @todo.save, {json: @todo}, {json: {errors: ["Todo could not be created :("]}}
   end
 
   def update
-    if @todo.update todo_params
-      render json: @todo
-    else
-      render json: {errors: ["Todo #{params[:id]} could not be updated :("]}
-    end
+    send_response @todo.update(todo_params), {json: @todo}, {json: {errors: ["Todo #{params[:id]} could not be updated :("]}}
   end
 
   def destroy
-    if @todo.destroy
-      render json: @todo
-    else
-      render json: {errors: ["Todo #{params[:id]} could not be deleted :("]}
-    end
+    send_response @todo.destroy, {json: @todo}, {json: {errors: ["Todo #{params[:id]} could not be deleted :("]}}
   end
 
   def show
-    if @todo
-      render json: @todo
-    else
-      render json: {errors: ["todo #{params[:id]} could not be found"]}
-    end
-
+    send_response(@todo, { json: @todo }, { json: {errors: ["todo #{params[:id]} could not be found"]} })
   end
 
   private
+
   def todo_params
     params.require(:todo).permit(:detail, :done)
   end

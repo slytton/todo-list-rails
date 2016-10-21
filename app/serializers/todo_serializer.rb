@@ -5,9 +5,9 @@ class TodoSerializer < ApplicationSerializer
 
   # Links to expose in the links section of json object
   link :self do
-    todo_path(object)
+    todo_url(object)
   end
   link :list do
-    list_path(object[:list_id])
+    list_url(object[:list_id])
   end
 end

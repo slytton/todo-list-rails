@@ -10,6 +10,7 @@ gem 'puma', '~> 3.0'
 # Use ActiveModel serializers for hypermedia api
 gem 'active_model_serializers', '~> 0.10.0'
 
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
@@ -23,9 +24,14 @@ gem 'active_model_serializers', '~> 0.10.0'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
+group :production do
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  #Use dotenv for config
+  gem 'dotenv-rails'
 end
 
 group :development do
